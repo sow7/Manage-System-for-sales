@@ -19,7 +19,12 @@ and open the template in the editor.
         $price = mysql_query("select price, stock from products where product_id=" . $_POST["product_id"]);
         $row = mysql_fetch_array($price);
         //$total = $row['price'] * $_POST["quantity"];
-        $newstock = $row['stock'] - $_POST["quantity"];
+        if($_POST["status"] =='submitted')
+        {
+            $newstock = $row['stock'] - $_POST["quantity"];
+        }else{
+            $newstock = $row['stock'] + $_POST["quantity"];
+        }
         if ($newstock < '0' && $row['stock'] > '0') {
             echo "<script>alert('The product only have " . $row['stock'] . ". Your order cannot be submitted.');</script>";
             echo "<meta http-equiv=\"Refresh\" content=\"0;index.php\">";
@@ -31,7 +36,7 @@ and open the template in the editor.
             mysql_query("update products set stock=" . $newstock . " where product_id=" . $_POST["product_id"]);
             //echo $total;
             mysql_query("INSERT INTO TRANSACTIONS (salesperson_id, product_id, customer_id, store_id, quantity, status) "
-                    . "VALUES ('" . $_POST["salesperson_id"] . "', '" . $_POST["product_id"] . "', '" . $_POST["customer_id"] . "', '" . $_POST["store_id"] . "', '" . $_POST["quantity"] . "', 'submitted')");
+                    . "VALUES ('" . $_POST["salesperson_id"] . "', '" . $_POST["product_id"] . "', '" . $_POST["customer_id"] . "', '" . $_POST["store_id"] . "', '" . $_POST["quantity"] . "', '" . $_POST["status"] . "')");
             echo "<meta http-equiv=\"Refresh\" content=\"0;index.php\">";
         }
         mysql_close($con);

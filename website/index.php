@@ -162,7 +162,16 @@
                                 <label for="Store" class="control-label">Store:</label>
                                 <input type="text" class="form-control" id="store_id" name="store_id"></input>
                             </div>
+
+                            <div id="kind" class="form-group">
+                                <p>Status:</p>
+                                <div class="box">
+                                    <label for="success"><input type="radio" name="status" id="status" value="submitted">Success</label>
+                                    <label for="return"><input type="radio" name="status" id="status" value="return">Returned</label>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <input type="submit" class="btn btn-primary" value="Add"></input>
